@@ -22,7 +22,7 @@
     <li>AD Focus is a planning app for school athletics staff. We collect only what the app needs to work.</li>
     <li>We do not sell personal data, show advertising, or use third-party analytics or tracking.</li>
     <li>Google data you connect is used only to provide AD Focus features to you. It is never used to train AI models.</li>
-    <li>AI features are optional. They run only when you ask, and student names are removed by default.</li>
+    <li>AI features are optional. They run only when you ask, and student names are removed by default. On supported Macs, everyday AI tasks run on your Mac and nothing is sent anywhere.</li>
   </ul>
 
   <h2>Who we are</h2>
@@ -54,7 +54,7 @@
     <li>We do not sell Google data or use it for advertising.</li>
     <li>We do not use Google data to develop, improve, or train generalised AI or machine-learning models.</li>
     <li>No person reads your Google data unless you ask us to for support, it is needed for security or legal reasons, or the data has been aggregated and anonymised for internal operations.</li>
-    <li>Google data is shared with an AI provider only when you start an AI request, and only the information shown in that request (see below).</li>
+    <li>Google data is shared with a cloud AI provider only when you start an AI request that uses one, and only the information shown in that request (see below). Requests handled by the on-device model never leave your Mac.</li>
   </ul>
   <p>You can disconnect Google access at any time in AD Focus Settings or at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
 
@@ -62,12 +62,17 @@
   <p>If you allow it, AD Focus reads and writes Apple Calendar and Reminders data, and syncs with the Things app. All of this happens on your Mac and is not sent to us.</p>
 
   <h2>AI features (optional)</h2>
-  <p>AD Focus can draft weekly plans, briefs and messages using an AI provider you choose: Anthropic (Claude), OpenAI, or Google (Gemini). You supply your own API key, which is kept in your Mac's Keychain.</p>
+  <p>AD Focus can draft weekly plans, briefs and messages with AI. It can use two kinds of AI:</p>
+  <ul>
+    <li><strong>On your Mac:</strong> on Macs that support Apple Intelligence, everyday tasks such as briefs, message drafts, chat and tidying pasted notes run on Apple's on-device model. These requests are processed entirely on your Mac and are not sent to us, to Apple, or to anyone else. This is on by default where available, and you can turn it off in Settings › AI.</li>
+    <li><strong>A cloud provider you choose:</strong> Anthropic (Claude), OpenAI, Google (Gemini), or another compatible service. Weekly planning and reviews always use this, and so do other tasks if you turn the on-device option off. You supply your own API key, which is kept in your Mac's Keychain.</li>
+  </ul>
+  <p>For both kinds:</p>
   <ul>
     <li>AI requests run only when you start them. Nothing is sent automatically.</li>
     <li>You can see exactly what will be sent before you send it.</li>
     <li>Student names are removed by default. Sensitive staff notes are included only if you choose to include them for that request.</li>
-    <li>Requests go directly from your Mac to the provider you picked, under that provider's own terms and privacy policy. We do not receive or store them.</li>
+    <li>Cloud requests go directly from your Mac to the provider you picked, under that provider's own terms and privacy policy. We do not receive or store them.</li>
     <li>Drafts are never sent to anyone without your action.</li>
   </ul>
 
@@ -83,7 +88,7 @@
   <ul>
     <li><strong>Supabase</strong> for database hosting and sign-in (EU region).</li>
     <li><strong>Google</strong> for sign-in, plus Calendar and Tasks if you connect them.</li>
-    <li><strong>Your chosen AI provider</strong>, only for AI requests you start.</li>
+    <li><strong>Your chosen cloud AI provider</strong>, only for AI requests you start that use it. On-device AI requests do not involve any provider.</li>
   </ul>
   <p>We do not share personal data with anyone else unless the law requires it.</p>
 
