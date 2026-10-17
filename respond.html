@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Officials assignment — AD Focus</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .card { border-top: 2px solid var(--fg); padding-top: 12px; margin: 24px 0; }
+  .card p { margin: 2px 0; }
+  .card .game { font-size: 1.2rem; font-weight: 600; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .actions button { font: inherit; padding: 10px 20px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--fg); background: var(--bg); color: var(--fg); }
+  .actions button.primary { background: var(--fg); color: var(--bg); }
+  .actions button:disabled { opacity: 0.5; cursor: default; }
+  #msg { margin-top: 20px; }
+</style>
+</head>
+<body>
+<nav><span class="brand">AD Focus</span></nav>
+<main>
+  <h1>Officials assignment</h1>
+  <p class="subtitle" id="school">&nbsp;</p>
+  <div class="card" id="game" aria-live="polite">Loading…</div>
+  <div class="actions" id="actions"></div>
+  <p id="msg" role="status"></p>
+  <p class="subtitle" style="margin-top:40px;font-size:0.85rem">This link works once and expires before the game.
+    Only your answer is recorded — nothing else is collected.</p>
+</main>
+<script>
+// Single-use accept/decline link for one officials assignment. Talks only to the official-response function,
+// which checks expiry and single use itself (AD Focus migrations 0032 and 0056).
+const API = 'https://xmiaewvlfyydfglkbhgv.supabase.co/functions/v1/official-response'
+const t = new URLSearchParams(location.search).get('t') || ''
+const el = id => document.getElementById(id)
+const say = s => { el('msg').textContent = s }
+const day = d => new Date(d).toLocaleString([], { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })
+const time = d => new Date(d).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+
+async function load() {
+  // Keep the token out of the address bar history once it has been read.
+  history.replaceState(null, '', location.pathname)
+  const r = await fetch(API + '?t=' + encodeURIComponent(t), { headers: { Accept: 'application/json' } })
+  const d = await r.json()
+  if (!r.ok) { el('game').textContent = d.error; return }
+  el('school').textContent = d.school
+  const g = el('game'); g.textContent = ''
+  const lines = [[d.event_title, 'game'], [day(d.event_start) + ' – ' + time(d.event_end), ''],
+                 [d.position ? 'Position: ' + d.position : '', ''], [d.official_name ? 'For: ' + d.official_name : '', '']]
+  for (const [text, cls] of lines) {
+    if (!text) continue
+    const p = document.createElement('p'); p.textContent = text; if (cls) p.className = cls; g.appendChild(p)
+  }
+  for (const [answer, label, cls] of [['accept', 'Accept', 'primary'], ['decline', 'Decline', '']]) {
+    const b = document.createElement('button'); b.textContent = label; b.className = cls
+    b.onclick = () => send(answer); el('actions').appendChild(b)
+  }
+}
+
+async function send(answer) {
+  document.querySelectorAll('.actions button').forEach(b => b.disabled = true)
+  try {
+    const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ t, answer }) })
+    const d = await r.json()
+    el('actions').textContent = ''
+    say(r.ok ? (answer === 'accept' ? 'Thank you — you have accepted this game.' : 'Thank you — you have declined this game.') : d.error)
+  } catch {
+    document.querySelectorAll('.actions button').forEach(b => b.disabled = false)
+    say('Could not reach the server. Please try again.')
+  }
+}
+
+if (!t) { el('game').textContent = 'This link is missing its code. Please use the link from your email.' }
+else load().catch(() => say('Something went wrong. Please try again later.'))
+</script>
+</body>
+</html>
