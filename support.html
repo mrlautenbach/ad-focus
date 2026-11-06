@@ -4,339 +4,295 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AD Focus Support</title>
-<meta name="description" content="Help for AD Focus: installing, getting started, using the app, data and backups, troubleshooting and common questions.">
+<meta name="description" content="Help for AD Focus: installing, getting started, data and backups, troubleshooting and common questions.">
 <link rel="stylesheet" href="style.css">
-<style>
-  .search { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 12px 0; margin: 0 0 8px; border-bottom: 1px solid var(--border); }
-  .search input {
-    width: 100%; font: inherit; font-size: 1rem; color: var(--fg); background: var(--card);
-    border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px;
-  }
-  .search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  .search-meta { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
-  .chip { font: inherit; font-size: 0.82rem; color: var(--fg); background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; cursor: pointer; }
-  .chip:hover { border-color: var(--accent); }
-  #count { margin-right: 4px; }
-  .toc { columns: 2; column-gap: 24px; padding-left: 20px; }
-  .toc li { margin-bottom: 4px; }
-  .table-wrap { overflow-x: auto; margin: 8px 0 16px; }
-  th { font-weight: 600; }
-  kbd { font: inherit; font-size: 0.85em; background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; white-space: nowrap; }
-  mark { background: #ffe36e; color: #1a1a1a; border-radius: 2px; padding: 0 1px; }
-  @media (prefers-color-scheme: dark) { mark { background: #8a6d00; color: #fff; } }
-  .hidden { display: none !important; }
-  #empty { display: none; }
-  .q { font-weight: 600; margin-bottom: 2px; }
-  .qa p { margin-top: 0; }
-  @media (max-width: 560px) { .toc { columns: 1; } main { padding: 24px 16px 64px; } nav { padding: 16px 16px 0; } }
-</style>
+<link rel="stylesheet" href="help.css">
 </head>
 <body>
-<nav>
-  <a class="brand" href="index.html">AD Focus</a>
-  <a href="features.html">Features</a>
-  <a href="support.html">Support</a>
-  <a href="privacy.html">Privacy</a>
-  <a href="terms.html">Terms</a>
-  <a href="mailto:myworlddiscovered@gmail.com">Contact</a>
-</nav>
-<main>
-  <h1>AD Focus Support</h1>
-  <p class="subtitle">How to install, set up and use AD Focus, and how to fix common problems.</p>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="index.html"><i>AF</i>AD Focus</a>
+    <a class="hide-sm" href="features.html">Features</a>
+    <a href="help.html">Help</a>
+    <a href="support.html" aria-current="page">Support</a>
+    <a class="hide-sm" href="mailto:myworlddiscovered@gmail.com">Contact</a>
+    <button class="top-search" type="button" data-search="">Search <kbd>⌘K</kbd></button>
+  </div>
+</header>
 
-  <div class="search" role="search">
-    <label for="q" class="hidden">Search the support manual</label>
-    <input id="q" type="search" placeholder="Search help — e.g. sign in, new Mac, read-only, calendar" autocomplete="off">
-    <div class="search-meta">
-      <span id="count">Press <kbd>/</kbd> to search.</span>
-      <button class="chip" type="button">sign in</button>
-      <button class="chip" type="button">missing screen</button>
-      <button class="chip" type="button">new Mac</button>
-      <button class="chip" type="button">calendar</button>
-      <button class="chip" type="button">undo</button>
-      <button class="chip" type="button">licence</button>
+<section class="hero">
+  <div class="hero-in">
+    <span class="eyebrow">Support</span>
+    <h1>Get set up. Fix problems fast.</h1>
+    <p>Installing AD Focus, joining your school, moving Macs, keeping data safe, and answers when something isn't working.</p>
+    <button class="big-search" type="button" data-search="">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Describe the problem — e.g. can't sign in, screen missing</span><kbd>/</kbd>
+    </button>
+    <div class="popular">Popular:
+      <button type="button" data-search="sign in">Signing in</button>
+      <button type="button" data-search="missing">Missing screen</button>
+      <button type="button" data-search="new Mac">New Mac</button>
+      <button type="button" data-search="read-only">Read-only</button>
+      <button type="button" data-search="licence">Licence</button>
     </div>
   </div>
+</section>
 
-  <p id="empty" class="note">No help topics match that search. Try fewer or different words, or <a href="mailto:myworlddiscovered@gmail.com">email support</a>.</p>
+<div class="cards-wrap">
+  <p class="section-label">Browse topics</p>
+  <div class="cards" id="cards"></div>
+</div>
 
-  <nav aria-label="Contents" id="contents">
-    <ul class="toc">
-      <li><a href="#about">About AD Focus</a></li>
-      <li><a href="#install">Installing and first launch</a></li>
-      <li><a href="#using">Using AD Focus</a></li>
-      <li><a href="#data">Data, sync and backups</a></li>
-      <li><a href="#troubleshooting">Troubleshooting</a></li>
-      <li><a href="#faq">FAQ and getting help</a></li>
-    </ul>
-  </nav>
+<div class="docs">
+  <nav class="sidenav" id="sidenav" aria-label="Contents"></nav>
+  <main class="content">
 
-  <section id="about">
+  <section class="hub" id="about">
     <h2>About AD Focus</h2>
-    <p>AD Focus is a planner for school Athletic Directors and their staff: one Mac app, with an iPhone companion, for the calendar, teams, game days, trips, budget, equipment, people and athletics mail.</p>
-    <p><strong>Who uses it.</strong> Each school has one Athletic Director (AD) who creates it and invites everyone else. Every person has one role:</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Role</th><th>Typical person</th><th>What they can do</th></tr></thead>
-      <tbody>
-        <tr><td>AD</td><td>Athletic Director</td><td>Everything, including invites, roles and deleting the school</td></tr>
-        <tr><td>Assistant AD</td><td>Deputy, coordinator</td><td>Almost everything; Coach Onboarding on by default</td></tr>
-        <tr><td>Coach</td><td>Head or assistant coach</td><td>Their own teams; many screens read-only</td></tr>
-        <tr><td>Staff</td><td>Office or facilities staff</td><td>The modules the AD switches on for them</td></tr>
-        <tr><td>Read-only</td><td>Observers, administrators</td><td>View and export only</td></tr>
-      </tbody>
-    </table></div>
-    <p>The AD can change what any role, or any single person, can use in <strong>Settings › Team › Feature Access…</strong>.</p>
-    <p><strong>Requirements.</strong></p>
-    <ul>
-      <li>A Mac running macOS 15 or later.</li>
-      <li>A Google account (usually your school Google Workspace account) to sign in to a school. AD Focus has no separate passwords.</li>
-      <li>An internet connection for sharing with your team. The app works offline and catches up when the connection returns.</li>
-      <li>Optional: an iPhone for the companion app and widgets.</li>
-    </ul>
-    <p><strong>Where your data lives.</strong> Each Mac keeps its own copy. A school's shared data is stored in a secure database in the EU, encrypted in transit and at rest. Each person sees only what their role allows, and every change is logged. Mail is never shared: your Gmail stays on your own Mac. See the <a href="privacy.html">Privacy Policy</a>.</p>
-    <p><strong>Licences.</strong> Each school holds an annual licence sized by seats; a seat is one invited or active person. A new school starts with a 30-day free trial (one trial per Google account).</p>
+    <p class="lead">What AD Focus is, who uses it, and what you need to run it.</p>
+    <article class="module" id="s-roles">
+      <h3>Who uses it</h3>
+      <p class="for">AD Focus is a planner for school Athletic Directors and their staff: one Mac app, with an iPhone companion, for the calendar, teams, game days, trips, budget, equipment, people and athletics mail.</p>
+      <p>Each school has one Athletic Director (AD) who creates it and invites everyone else. Every person has one role:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Role</th><th>Typical person</th><th>What they can do</th></tr></thead>
+        <tbody>
+          <tr><td>AD</td><td>Athletic Director</td><td>Everything, including invites, roles and deleting the school</td></tr>
+          <tr><td>Assistant AD</td><td>Deputy, coordinator</td><td>Almost everything; Coach Onboarding on by default</td></tr>
+          <tr><td>Coach</td><td>Head or assistant coach</td><td>Their own teams; many screens read-only</td></tr>
+          <tr><td>Staff</td><td>Office or facilities staff</td><td>The modules the AD switches on for them</td></tr>
+          <tr><td>Read-only</td><td>Observers, administrators</td><td>View and export only</td></tr>
+        </tbody>
+      </table></div>
+      <p>The AD can change what any role, or any single person, can use in <strong>Settings › Team › Feature Access…</strong>.</p>
+    </article>
+    <article class="module" id="s-requirements">
+      <h3>Requirements</h3>
+      <ul>
+        <li>A Mac running macOS 15 or later.</li>
+        <li>A Google account (usually your school Google Workspace account) to sign in to a school. AD Focus has no separate passwords.</li>
+        <li>An internet connection for sharing with your team. The app works offline and catches up when the connection returns.</li>
+        <li>Optional: an iPhone for the companion app and widgets.</li>
+      </ul>
+    </article>
+    <article class="module" id="s-where-data">
+      <h3>Where your data lives, and licences</h3>
+      <p class="for">Each Mac keeps its own copy. A school's shared data is stored in a secure database in the EU, encrypted in transit and at rest. Each person sees only what their role allows, and every change is logged.</p>
+      <p>Mail is never shared: your Gmail stays on your own Mac. See the <a href="privacy.html">Privacy Policy</a>.</p>
+      <p>Each school holds an annual licence sized by seats; a seat is one invited or active person. A new school starts with a 30-day free trial, one trial per Google account.</p>
+    </article>
   </section>
 
-  <section id="install">
+  <section class="hub" id="install">
     <h2>Installing and first launch</h2>
-    <p>Most people are up and running within ten minutes: install, open, choose how to start, and sign in with Google.</p>
-    <p><strong>Install.</strong></p>
-    <ol>
-      <li>Open the AD Focus download and drag <strong>AD Focus</strong> into Applications.</li>
-      <li>Open it from Applications. Only one copy runs at a time; opening it again brings the open copy to the front.</li>
-    </ol>
-    <p><strong>Choose how to start.</strong> The Welcome window offers three choices:</p>
-    <ul>
-      <li><strong>Set up a new school</strong> — for the AD. It walks through School (name, time zone, week start, levels) → Your department (which modules the school uses) → Season names → First year (dates, seasons, blackouts) → Teams &amp; venues → Import data → Review. Each step saves as you continue, so stopping part-way keeps what's done.</li>
-      <li><strong>Join my school</strong> — for everyone invited by an AD. It opens <strong>Settings › Team</strong>. Click <strong>Sign In to Team</strong>, sign in with the Google account the invitation was sent to, then click <strong>Join</strong>. Only join schools you know.</li>
-      <li><strong>Just look around</strong> — loads a sample school (6 sports, 12 teams, 3 venues and a season of games). Only offered on a Mac that isn't connected to a school yet.</li>
-    </ul>
-    <p>Closed the Welcome window by mistake? Open <strong>File › School Setup…</strong> or <strong>Help › School Setup…</strong>.</p>
-    <p><strong>Mac permissions.</strong> macOS asks the first time each one is needed. You can grant any of them later in <strong>System Settings › Privacy &amp; Security</strong>.</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Permission</th><th>Needed for</th></tr></thead>
-      <tbody>
-        <tr><td>Calendars</td><td>Showing your Mac calendars as busy time, and writing to AD Focus calendars</td></tr>
-        <tr><td>Reminders</td><td>Syncing to-dos with Apple Reminders</td></tr>
-        <tr><td>Notifications</td><td>The 7:15 morning brief, reminders and mail alerts</td></tr>
-        <tr><td>Contacts</td><td>Importing from Apple Contacts into People</td></tr>
-        <tr><td>Automation (Things)</td><td>Syncing to-dos with Things</td></tr>
-      </tbody>
-    </table></div>
-    <p><strong>Get started checklist.</strong> <strong>Settings › Get Started</strong> lists every setup item and ticks each one off as it's done. The AD's Today screen shows the next four.</p>
-    <p><strong>Importing existing data.</strong> School Setup › Import, or <strong>Settings › School › Import program from CSV</strong>, takes levels, sports, coaches, teams, rosters (name and grade only), events and budget lines. Download the sample CSV files from that screen; they're designed to import together, in that order.</p>
-    <p><strong>The iPhone app.</strong> Install it and sign in with the same Google account. It shows Today, Mail, Calendar, Equipment and <strong>More › People</strong>, plus home-screen widgets for the brief, tasks, calendar and notes.</p>
+    <p class="lead">Most people are running within ten minutes: install, open, choose how to start, sign in with Google.</p>
+    <article class="module" id="s-install">
+      <h3>Install and open AD Focus</h3>
+      <ol>
+        <li>Open the AD Focus download and drag <strong>AD Focus</strong> into Applications.</li>
+        <li>Open it from Applications. Only one copy runs at a time; opening it again brings the open copy to the front.</li>
+      </ol>
+    </article>
+    <article class="module" id="s-start">
+      <h3>Choose how to start</h3>
+      <p class="for">The Welcome window offers three choices.</p>
+      <ul>
+        <li><strong>Set up a new school</strong> — for the AD. It walks through School (name, time zone, week start, levels) → Your department (which modules the school uses) → Season names → First year (dates, seasons, blackouts) → Teams &amp; venues → Import data → Review. Each step saves as you continue, so stopping part-way keeps what's done.</li>
+        <li><strong>Join my school</strong> — for everyone invited by an AD. It opens <strong>Settings › Team</strong>. Click <strong>Sign In to Team</strong>, sign in with the Google account the invitation was sent to, then click <strong>Join</strong>. Only join schools you know.</li>
+        <li><strong>Just look around</strong> — loads a sample school (6 sports, 12 teams, 3 venues and a season of games). Only offered on a Mac that isn't connected to a school yet.</li>
+      </ul>
+      <p>Closed the Welcome window by mistake? Open <strong>File › School Setup…</strong> or <strong>Help › School Setup…</strong>.</p>
+    </article>
+    <article class="module" id="s-permissions">
+      <h3>Mac permissions</h3>
+      <p class="for">macOS asks the first time each one is needed. You can grant any of them later in <strong>System Settings › Privacy &amp; Security</strong>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Permission</th><th>Needed for</th></tr></thead>
+        <tbody>
+          <tr><td>Calendars</td><td>Showing your Mac calendars as busy time, and writing to AD Focus calendars</td></tr>
+          <tr><td>Reminders</td><td>Syncing to-dos with Apple Reminders</td></tr>
+          <tr><td>Notifications</td><td>The 7:15 morning brief, reminders and mail alerts</td></tr>
+          <tr><td>Contacts</td><td>Importing from Apple Contacts into People</td></tr>
+          <tr><td>Automation (Things)</td><td>Syncing to-dos with Things</td></tr>
+        </tbody>
+      </table></div>
+    </article>
+    <article class="module" id="s-import">
+      <h3>Get started checklist and importing data</h3>
+      <p class="for"><strong>Settings › Get Started</strong> lists every setup item and ticks each one off as it's done. The AD's Today screen shows the next four.</p>
+      <p>School Setup › Import, or <strong>Settings › School › Import program from CSV</strong>, takes levels, sports, coaches, teams, rosters (name and grade only), events and budget lines. Download the sample CSV files from that screen; they're designed to import together, in that order.</p>
+    </article>
+    <article class="module" id="s-iphone">
+      <h3>The iPhone app</h3>
+      <p class="for">Install it and sign in with the same Google account. It shows Today, Mail, Calendar, Equipment and <strong>More › People</strong>, plus home-screen widgets for the brief, tasks, calendar and notes.</p>
+    </article>
   </section>
 
-  <section id="using">
+  <section class="hub" id="using">
     <h2>Using AD Focus</h2>
-    <p>Everything starts from the sidebar, grouped into six hubs. If you can't see a screen, it's either switched off for your school or not part of your role (see <a href="#troubleshooting">Troubleshooting</a>).</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Hub</th><th>Screens</th><th>What they're for</th></tr></thead>
-      <tbody>
-        <tr><td>Planning</td><td>Today, Tasks, Calendar, Year, Goals, Strategic Plan</td><td>The morning brief, to-dos, every event by week, month and year, goals and the department plan</td></tr>
-        <tr><td>Athletics</td><td>Schedule, Game Day, Teams, Season Setup (Seasons, Leagues, Tournaments, Officials), Trips (Trip Risk, Trip Planner)</td><td>Fixtures and practices, game-day roles and run sheets, rosters and coaches, tournaments, booking and paying officials, travel and risk sign-off</td></tr>
-        <tr><td>Operations</td><td>Facilities (Inspections), Equipment, Emergency Plans, Budget</td><td>Venue bookings and clashes, safety checks, kit check-out and the library, emergency action plans, budget lines and spending</td></tr>
-        <tr><td>People</td><td>People, Staff &amp; Coaches (Coach Onboarding), Team Rosters, Students (Compliance, Incident Log), Officials, Contacts, Staff Notes</td><td>Everyone in one directory, clearances and certifications, incidents, other ADs and vendors, private staff notes</td></tr>
-        <tr><td>Communication</td><td>Mail, Marketing, Surveys, Snippets</td><td>Your athletics inbox, posts and notices, surveys, reusable text</td></tr>
-        <tr><td>Admin</td><td>Season Dashboard, AD Brain, Assistant, Program Assessment</td><td>Season figures, notes and ideas, AI drafting help, program self-assessment</td></tr>
-      </tbody>
-    </table></div>
-    <p><strong>Keyboard shortcuts for getting around.</strong></p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Shortcut</th><th>Does</th></tr></thead>
-      <tbody>
-        <tr><td><kbd>⌘K</kbd></td><td>Command palette: jump to any screen, record or action</td></tr>
-        <tr><td><kbd>⇧⌘M</kbd></td><td>All Modules: every screen as a tile with a one-line description</td></tr>
-        <tr><td><kbd>⌥⌘N</kbd></td><td>Quick Add Task, from anywhere in the app</td></tr>
-        <tr><td><kbd>⌘1</kbd> to <kbd>⌘9</kbd></td><td>The first nine screens</td></tr>
-        <tr><td><kbd>⌘Z</kbd> / <kbd>⇧⌘Z</kbd></td><td>Undo / Redo your own last saves</td></tr>
-        <tr><td><kbd>⇧⌘H</kbd></td><td>Event Hub for the selected event: weather, officials, trip, venue, roles, to-dos, budget and incidents on one sheet</td></tr>
-      </tbody>
-    </table></div>
-    <p><strong>Today and the morning brief.</strong> Today shows one line for each area that needs action: weather, officials, transport, clearances, certifications, facilities, budget review, urgent mail and follow-ups. Each line opens the screen where it's fixed. The brief is prepared overnight and arrives as a 7:15 notification; change this in <strong>Settings › Workday › Notifications</strong>.</p>
-    <p><strong>Working with your team.</strong> When your school is connected, changes appear on teammates' screens within about a second, and their initials show on records they have open. If two people change the same field, the later save wins and both see a short notice. A field you're typing in is never overwritten: an <strong>Updated by …</strong> badge offers <strong>Use theirs</strong> or <strong>Keep mine</strong>.</p>
-    <p><strong>Locks and sign-off.</strong> In Trip Risk, one person edits a section at a time, and others see who is editing it. The lock is released about 45 seconds after that person leaves, quits or is idle for two minutes. A signed-off assessment is read-only until someone clicks <strong>Reopen…</strong> and gives a reason; it then needs approval again.</p>
-    <p><strong>Nothing goes out on its own.</strong> Notices, emails and calendar changes are drafts or previews that you confirm. AI only runs when you click, and student names are hidden from it by default. The one exception is a scheduled survey with automatic sending switched on, both in Settings and on the survey.</p>
-    <p><strong>Customising.</strong> <strong>Settings › Appearance</strong> sets school colours, font, app icon and the sidebar arrangement; <strong>Use Recommended Layout</strong> puts the sidebar back to the six hubs. The AD chooses which modules the school uses in <strong>Settings › School › Your department</strong>.</p>
+    <p class="lead">How the app is organised, and how it behaves when you work with your team.</p>
+    <article class="module" id="s-areas">
+      <h3>The six areas of the sidebar</h3>
+      <p class="for">Everything starts from the sidebar. For a full guide to every screen, see the <a href="help.html">Help Centre</a>.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Area</th><th>Screens</th></tr></thead>
+        <tbody>
+          <tr><td>Planning</td><td>Today, Tasks, Calendar, Goals, Strategic Plan</td></tr>
+          <tr><td>Athletics</td><td>Schedule (Year), Game Day, Teams, Season Setup (Seasons, Leagues, Tournaments), Trips (Trip Risk, Trip Planner)</td></tr>
+          <tr><td>Operations</td><td>Facilities (Inspections), Equipment, Emergency Plans, Budget</td></tr>
+          <tr><td>People</td><td>Staff &amp; Coaches (Coach Onboarding, Staff Notes), Team Rosters, Students (Compliance, Incident Log), Officials, Contacts</td></tr>
+          <tr><td>Communication</td><td>Mail, Marketing, Surveys, Snippets</td></tr>
+          <tr><td>Admin</td><td>Season Dashboard, Data Health, AD Brain, Assistant, Program Assessment</td></tr>
+        </tbody>
+      </table></div>
+      <p>Press <kbd>⌘K</kbd> in the app to jump anywhere, or <kbd>⇧⌘M</kbd> to see every screen as a tile.</p>
+    </article>
+    <article class="module" id="s-brief">
+      <h3>Today and the morning brief</h3>
+      <p class="for">Today shows one line for each area that needs action: weather, officials, transport, clearances, certifications, facilities, budget review, urgent mail and follow-ups. Each line opens the screen where it's fixed.</p>
+      <p>The brief is prepared overnight and arrives as a 7:15 notification; change this in <strong>Settings › Workday › Notifications</strong>.</p>
+    </article>
+    <article class="module" id="s-team">
+      <h3>Working with your team</h3>
+      <p class="for">When your school is connected, changes appear on teammates' screens within about a second, and their initials show on records they have open.</p>
+      <p>If two people change the same field, the later save wins and both see a short notice. A field you're typing in is never overwritten: an <strong>Updated by …</strong> badge offers <strong>Use theirs</strong> or <strong>Keep mine</strong>.</p>
+    </article>
+    <article class="module" id="s-locks">
+      <h3>Locks and sign-off</h3>
+      <p class="for">In Trip Risk, one person edits a section at a time, and others see who is editing it. The lock is released about 45 seconds after that person leaves, quits or is idle for two minutes.</p>
+      <p>A signed-off assessment is read-only until someone clicks <strong>Reopen…</strong> and gives a reason; it then needs approval again.</p>
+    </article>
+    <article class="module" id="s-nothing-auto">
+      <h3>Nothing goes out on its own</h3>
+      <p class="for">Notices, emails and calendar changes are drafts or previews that you confirm. AI only runs when you click, and student names are hidden from it by default.</p>
+      <p>The one exception is a scheduled survey with automatic sending switched on, both in Settings and on the survey.</p>
+    </article>
+    <article class="module" id="s-customise">
+      <h3>Customising the app</h3>
+      <p class="for"><strong>Settings › Appearance</strong> sets school colours, font, app icon and the sidebar arrangement; <strong>Use Recommended Layout</strong> puts the sidebar back to the six areas.</p>
+      <p>The AD chooses which modules the school uses in <strong>Settings › School › Your department</strong>.</p>
+    </article>
   </section>
 
-  <section id="data">
+  <section class="hub" id="data">
     <h2>Data, sync and backups</h2>
-    <p>Every save is logged, so almost any mistake can be undone from <strong>Settings › History</strong>, and a move file carries everything to a new Mac.</p>
-    <p><strong>Undo and restore.</strong> <strong>Edit › Undo</strong> (<kbd>⌘Z</kbd>) steps back through your own saves, skipping any field a teammate has changed since. <strong>Settings › History</strong> lists every save with before and after, and can restore deleted records. History is kept for at least 30 days.</p>
-    <p><strong>Syncing.</strong> A connected Mac sends your changes moments after you stop typing and receives teammates' changes live. <strong>Settings › Team › Sync Now</strong> forces a check. Offline, the app keeps working and shows <strong>Reconnecting…</strong> then <strong>Catching up…</strong> when the connection returns.</p>
-    <p><strong>Moving to a new Mac.</strong></p>
-    <ol>
-      <li>On the old Mac, choose <strong>Settings › Data › Create Move File…</strong> and pick a passphrase of at least 12 characters. It can't be recovered if forgotten.</li>
-      <li>Send the file with <strong>Send with AirDrop…</strong>. It lands in Downloads on the new Mac.</li>
-      <li>On the new Mac, choose <strong>Settings › Data › Set Up from a Move File…</strong>, type the passphrase, then click <strong>Restore and Restart</strong>. The app then walks you through the Mac permissions again, because macOS doesn't let them move between Macs.</li>
-      <li>Back on the old Mac, click <strong>Finish Moving…</strong> so only the new Mac sends surveys and waiting changes.</li>
-    </ol>
-    <p>Any data that was already on the new Mac is kept as a backup for 30 days after the move.</p>
-    <p><strong>Exports.</strong></p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>What</th><th>Where</th><th>Who</th></tr></thead>
-      <tbody>
-        <tr><td>Settings file (to share or reuse)</td><td>Settings › Data › Export / import settings</td><td>Anyone</td></tr>
-        <tr><td>My data</td><td>Settings › Team › Your data › Export My Data…</td><td>Anyone</td></tr>
-        <tr><td>A member's data</td><td>Settings › Team › Export Their Data…</td><td>AD</td></tr>
-        <tr><td>Whole school</td><td>Settings › Team › Export School Data…</td><td>AD</td></tr>
-        <tr><td>One student's record (parent or student request)</td><td>Settings › Team › Student records › Export Record…</td><td>AD</td></tr>
-      </tbody>
-    </table></div>
-    <p><strong>Student records and retention.</strong> The AD can erase a student's records (typing the name to confirm), place a legal hold that blocks erasure, and switch on automatic deletion by category. Deletion runs nightly and skips students under a hold. Every export, hold and erasure is written to the school's privacy log.</p>
-    <p><strong>Removing data.</strong></p>
-    <ul>
-      <li><strong>Settings › Data › Erase all data…</strong> clears this Mac's AD Focus data. You can bring it back from History. Calendars and Things are not touched.</li>
-      <li><strong>Settings › Privacy › Remove All Data from This Mac…</strong> (type REMOVE to confirm) signs out of Google and your school, then on restart deletes all local data, backups, caches, saved keys and settings. Use it before handing a Mac on.</li>
-      <li><strong>Delete School…</strong> (AD only, typing the school name to confirm) deletes the school's shared data for everyone. It cannot be undone.</li>
-    </ul>
-    <p><strong>What AD Focus never stores.</strong> Rosters hold name and grade (plus school ID, school email and equipment sizes for equipment records). Health information is limited to clearance yes/no flags with expiry dates and minimal incident facts. AD Focus never stores diagnoses, medications, medical notes, bank or tax numbers, or uploaded forms.</p>
+    <p class="lead">Every save is logged, so almost any mistake can be undone, and a move file carries everything to a new Mac.</p>
+    <article class="module" id="s-undo">
+      <h3>Undo and restore</h3>
+      <p class="for"><strong>Edit › Undo</strong> (<kbd>⌘Z</kbd>) steps back through your own saves, skipping any field a teammate has changed since.</p>
+      <p><strong>Settings › History</strong> lists every save with before and after, and can restore deleted records. History is kept for at least 30 days.</p>
+    </article>
+    <article class="module" id="s-sync">
+      <h3>Syncing</h3>
+      <p class="for">A connected Mac sends your changes moments after you stop typing and receives teammates' changes live. <strong>Settings › Team › Sync Now</strong> forces a check.</p>
+      <p>Offline, the app keeps working and shows <strong>Reconnecting…</strong> then <strong>Catching up…</strong> when the connection returns.</p>
+    </article>
+    <article class="module" id="s-move">
+      <h3>Moving to a new Mac</h3>
+      <ol>
+        <li>On the old Mac, choose <strong>Settings › Data › Create Move File…</strong> and pick a passphrase of at least 12 characters. It can't be recovered if forgotten.</li>
+        <li>Send the file with <strong>Send with AirDrop…</strong>. It lands in Downloads on the new Mac.</li>
+        <li>On the new Mac, choose <strong>Settings › Data › Set Up from a Move File…</strong>, type the passphrase, then click <strong>Restore and Restart</strong>. The app walks you through the Mac permissions again, because macOS doesn't let them move between Macs.</li>
+        <li>Back on the old Mac, click <strong>Finish Moving…</strong> so only the new Mac sends surveys and waiting changes.</li>
+      </ol>
+      <p>Any data that was already on the new Mac is kept as a backup for 30 days after the move.</p>
+    </article>
+    <article class="module" id="s-exports">
+      <h3>Exports</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>What</th><th>Where</th><th>Who</th></tr></thead>
+        <tbody>
+          <tr><td>Settings file (to share or reuse)</td><td>Settings › Data › Export / import settings</td><td>Anyone</td></tr>
+          <tr><td>My data</td><td>Settings › Team › Your data › Export My Data…</td><td>Anyone</td></tr>
+          <tr><td>A member's data</td><td>Settings › Team › Export Their Data…</td><td>AD</td></tr>
+          <tr><td>Whole school</td><td>Settings › Team › Export School Data…</td><td>AD</td></tr>
+          <tr><td>One student's record</td><td>Settings › Team › Student records › Export Record…</td><td>AD</td></tr>
+        </tbody>
+      </table></div>
+    </article>
+    <article class="module" id="s-retention">
+      <h3>Student records and retention</h3>
+      <p class="for">The AD can erase a student's records (typing the name to confirm), place a legal hold that blocks erasure, and switch on automatic deletion by category.</p>
+      <p>Deletion runs nightly and skips students under a hold. Every export, hold and erasure is written to the school's privacy log.</p>
+    </article>
+    <article class="module" id="s-remove">
+      <h3>Removing data</h3>
+      <ul>
+        <li><strong>Settings › Data › Erase all data…</strong> clears this Mac's AD Focus data. You can bring it back from History. Calendars and Things are not touched.</li>
+        <li><strong>Settings › Privacy › Remove All Data from This Mac…</strong> (type REMOVE to confirm) signs out of Google and your school, then on restart deletes all local data, backups, caches, saved keys and settings. Use it before handing a Mac on.</li>
+        <li><strong>Delete School…</strong> (AD only, typing the school name to confirm) deletes the school's shared data for everyone. It cannot be undone.</li>
+      </ul>
+    </article>
+    <article class="module" id="s-never">
+      <h3>What AD Focus never stores</h3>
+      <p class="for">Rosters hold name and grade (plus school ID, school email and equipment sizes for equipment records). Health information is limited to clearance yes/no flags with expiry dates and minimal incident facts.</p>
+      <p>AD Focus never stores diagnoses, medications, medical notes, bank or tax numbers, or uploaded forms.</p>
+    </article>
   </section>
 
-  <section id="troubleshooting">
+  <section class="hub" id="troubleshooting">
     <h2>Troubleshooting</h2>
-    <p>Most problems come down to one of three things: signing in with a different Google account, a module that's switched off or not part of your role, or your school's licence. Check those first.</p>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Problem</th><th>Likely cause</th><th>What to do</th></tr></thead>
-      <tbody>
-        <tr><td>macOS says AD Focus can't be opened, or the developer can't be verified</td><td>macOS is checking a newly downloaded app</td><td>Open System Settings › Privacy &amp; Security, click <strong>Open Anyway</strong>, then open AD Focus again</td></tr>
-        <tr><td>A screen is missing from the sidebar</td><td>Your school switched that module off, or your role doesn't include it</td><td>Look in All Modules (<kbd>⇧⌘M</kbd>). If it isn't there, ask your AD to check Settings › School › Your department and Settings › Team › Feature Access…</td></tr>
-        <tr><td>A screen or record is read-only</td><td>Your role is view-only there, someone else is editing that Trip Risk section, the item is signed off, or the licence has lapsed</td><td>Read the banner: wait for the other person to finish (about 45 seconds after they leave), use <strong>Reopen…</strong>, or ask your AD</td></tr>
-        <tr><td>"Sign in with Google first", or no invitation appears</td><td>You signed in with a different Google account from the one invited</td><td>In Settings › Team, sign out and sign in with the invited address, or ask your AD to invite the email you use</td></tr>
-        <tr><td>Joining a school only offers <strong>Replace This Mac's Data</strong></td><td>This Mac already holds another school's data; one Mac never mixes schools</td><td>If you need a copy, make a move file first (Settings › Data), then replace</td></tr>
-        <tr><td>Teammates' changes don't appear</td><td>You're offline, the Mac was asleep, or your sign-in expired</td><td>Check Wi-Fi, then Settings › Team › <strong>Sync Now</strong>. If asked, click <strong>Sign In Again</strong>. Unsent work is kept and sent when you reconnect</td></tr>
-        <tr><td>A notice says you replaced someone's change</td><td>Two people edited the same field at nearly the same time</td><td>This is expected: the later save wins. Check the value and change it back if needed</td></tr>
-        <tr><td>macOS keeps asking for your password to use the keychain</td><td>AD Focus keeps your sign-ins in the Mac keychain</td><td>Enter your Mac password and click <strong>Always Allow</strong></td></tr>
-        <tr><td>Calendar, Reminders or Contacts information doesn't show</td><td>The permission was declined</td><td>System Settings › Privacy &amp; Security › the matching item › switch on AD Focus</td></tr>
-        <tr><td>Events don't appear in Google Calendar</td><td>AD Focus only writes to linked calendars with publishing switched on, and only after you confirm the preview</td><td>In Settings › Calendars, link the calendar and switch publishing on</td></tr>
-        <tr><td>"Couldn't open Mail" when making a draft</td><td>No default mail app is set up on this Mac</td><td>Use <strong>Copy for Gmail / Outlook</strong>, or <strong>Save PDF</strong> and attach it yourself</td></tr>
-        <tr><td>Every window is covered with "AD Focus is locked"</td><td>App lock turned on after idle time or display sleep</td><td>Click <strong>Unlock</strong> and use Touch ID or your Mac password. Change the timing in Settings › Privacy › App lock</td></tr>
-        <tr><td>Lost the phone with your two-step sign-in codes</td><td>Your only authenticator app was on that phone</td><td>Use your second authenticator if you set one up; otherwise <a href="mailto:myworlddiscovered@gmail.com">email support</a> to reset it</td></tr>
-        <tr><td>"Couldn't get exchange rates"</td><td>The currency service couldn't be reached</td><td>Enter the exchange rate by hand</td></tr>
-        <tr><td>"Close other AD Focus windows and try again"</td><td>Another window has the same record open</td><td>Close the other AD Focus windows and try again</td></tr>
-        <tr><td>Can't invite anyone: "All seats in use"</td><td>Every seat on the school's licence is taken</td><td>Remove someone who has left (<strong>Mark as Left</strong>), or contact us to add seats</td></tr>
-        <tr><td>You can view but not add or change anything, and a licence warning shows</td><td>The school's licence has ended and its grace period is over</td><td>Renew the licence. Nothing is lost, and you can still view and export everything meanwhile</td></tr>
-        <tr><td>"Already used your free trial" when creating a school</td><td>Each Google account gets one free trial</td><td><a href="mailto:myworlddiscovered@gmail.com">Contact us</a> about a licence</td></tr>
-      </tbody>
-    </table></div>
+    <p class="lead">Most problems come down to a different Google account, a module that's switched off or not in your role, or the school's licence. Check those first.</p>
+    <article class="module" id="t-gatekeeper"><h3>macOS says AD Focus can't be opened</h3><p class="where"><span>Why</span> macOS checks a newly downloaded app before its first launch.</p><p class="for">Open System Settings › Privacy &amp; Security, click <strong>Open Anyway</strong>, then open AD Focus again.</p></article>
+    <article class="module" id="t-missing"><h3>A screen is missing from the sidebar</h3><p class="where"><span>Why</span> Your school switched that module off, or your role doesn't include it.</p><p class="for">Look in All Modules (<kbd>⇧⌘M</kbd>). If it isn't there, ask your AD to check <strong>Settings › School › Your department</strong> and <strong>Settings › Team › Feature Access…</strong>. The Incident Log is switched on separately, in <strong>Settings › Policies › Modules</strong>.</p></article>
+    <article class="module" id="t-readonly"><h3>A screen or record is read-only</h3><p class="where"><span>Why</span> Your role is view-only there, someone else is editing that Trip Risk section, the item is signed off, or the licence has lapsed.</p><p class="for">Read the banner. Wait for the other person to finish (about 45 seconds after they leave), use <strong>Reopen…</strong>, or ask your AD.</p></article>
+    <article class="module" id="t-signin"><h3>"Sign in with Google first", or no invitation appears</h3><p class="where"><span>Why</span> You signed in with a different Google account from the one invited.</p><p class="for">In Settings › Team, sign out and sign in with the invited address, or ask your AD to invite the email you use.</p></article>
+    <article class="module" id="t-replace"><h3>Joining a school only offers "Replace This Mac's Data"</h3><p class="where"><span>Why</span> This Mac already holds another school's data, and one Mac never mixes schools.</p><p class="for">If you need a copy, make a move file first (<strong>Settings › Data</strong>), then replace.</p></article>
+    <article class="module" id="t-sync"><h3>Teammates' changes don't appear</h3><p class="where"><span>Why</span> You're offline, the Mac was asleep, or your sign-in expired.</p><p class="for">Check Wi-Fi, then <strong>Settings › Team › Sync Now</strong>. If asked, click <strong>Sign In Again</strong>. Unsent work is kept and sent when you reconnect.</p></article>
+    <article class="module" id="t-replaced"><h3>A notice says you replaced someone's change</h3><p class="where"><span>Why</span> Two people edited the same field at nearly the same time.</p><p class="for">This is expected: the later save wins. Check the value and change it back if needed.</p></article>
+    <article class="module" id="t-keychain"><h3>macOS keeps asking for your keychain password</h3><p class="where"><span>Why</span> AD Focus keeps your sign-ins in the Mac keychain.</p><p class="for">Enter your Mac password and click <strong>Always Allow</strong>.</p></article>
+    <article class="module" id="t-permissions"><h3>Calendar, Reminders or Contacts information doesn't show</h3><p class="where"><span>Why</span> The permission was declined.</p><p class="for">Open System Settings › Privacy &amp; Security, choose the matching item, and switch on AD Focus.</p></article>
+    <article class="module" id="t-gcal"><h3>Events don't appear in Google Calendar</h3><p class="where"><span>Why</span> AD Focus only writes to linked calendars with publishing switched on, and only after you confirm the preview.</p><p class="for">In <strong>Settings › Calendars</strong>, link the calendar and switch publishing on.</p></article>
+    <article class="module" id="t-mail"><h3>"Couldn't open Mail" when making a draft</h3><p class="where"><span>Why</span> No default mail app is set up on this Mac.</p><p class="for">Use <strong>Copy for Gmail / Outlook</strong>, or <strong>Save PDF</strong> and attach it yourself.</p></article>
+    <article class="module" id="t-locked"><h3>Every window says "AD Focus is locked"</h3><p class="where"><span>Why</span> App lock turned on after idle time or display sleep.</p><p class="for">Click <strong>Unlock</strong> and use Touch ID or your Mac password. Change the timing in <strong>Settings › Privacy › App lock</strong>.</p></article>
+    <article class="module" id="t-twostep"><h3>Lost the phone with your two-step sign-in codes</h3><p class="where"><span>Why</span> Your only authenticator app was on that phone.</p><p class="for">Use your second authenticator if you set one up; otherwise <a href="mailto:myworlddiscovered@gmail.com">email support</a> to reset it.</p></article>
+    <article class="module" id="t-rates"><h3>"Couldn't get exchange rates"</h3><p class="where"><span>Why</span> The currency service couldn't be reached.</p><p class="for">Enter the exchange rate by hand.</p></article>
+    <article class="module" id="t-windows"><h3>"Close other AD Focus windows and try again"</h3><p class="where"><span>Why</span> Another window has the same record open.</p><p class="for">Close the other AD Focus windows and try again.</p></article>
+    <article class="module" id="t-seats"><h3>Can't invite anyone: "All seats in use"</h3><p class="where"><span>Why</span> Every seat on the school's licence is taken.</p><p class="for">Remove someone who has left (<strong>Mark as Left</strong>), or <a href="mailto:myworlddiscovered@gmail.com">contact us</a> to add seats.</p></article>
+    <article class="module" id="t-licence"><h3>You can view but not change anything, with a licence warning</h3><p class="where"><span>Why</span> The school's licence has ended and its grace period is over.</p><p class="for">Renew the licence. Nothing is lost, and you can still view and export everything meanwhile.</p></article>
+    <article class="module" id="t-trial"><h3>"Already used your free trial" when creating a school</h3><p class="where"><span>Why</span> Each Google account gets one free trial.</p><p class="for"><a href="mailto:myworlddiscovered@gmail.com">Contact us</a> about a licence.</p></article>
   </section>
 
-  <section id="faq">
-    <h2>FAQ and getting help</h2>
-    <div class="qa"><p class="q">Does AD Focus send emails or post anything by itself?</p><p>No. Every notice, email and calendar change is a draft or preview you confirm. The only exception is a scheduled survey with automatic sending switched on.</p></div>
-    <div class="qa"><p class="q">Does AI see student names?</p><p>Not by default. AI runs only when you click, shows what it will send, and hides student names. Staff notes and coach evaluations are never sent. Choose your provider in <strong>Settings › AI</strong>, or use the free on-device model.</p></div>
-    <div class="qa"><p class="q">Can coaches see staff notes or evaluations?</p><p>No. Staff Notes are for the AD only by default, and the AD shares an evaluation with a coach one checkpoint at a time.</p></div>
-    <div class="qa"><p class="q">Can I use AD Focus without connecting to a school?</p><p>Yes. It works on one Mac on its own; connecting to a school adds sharing and live updates.</p></div>
-    <div class="qa"><p class="q">Can I belong to two schools?</p><p>Not on the same Mac. Joining a second school replaces this Mac's data.</p></div>
-    <div class="qa"><p class="q">Is my Gmail shared with my team?</p><p>No. Mail stays on your own Mac. Recent and starred mail is kept on the Mac, encrypted, so you can read it offline.</p></div>
-    <div class="qa"><p class="q">What happens at the end of the school year?</p><p>Choose <strong>File › School Setup… › Move to a New Year</strong>. For blackouts, teams, coaches, rosters (grades move up and graduates leave), budget, practices, events and goals, choose Keep, Change or Leave behind. Expenses, clearances, trips, incidents, tournaments and equipment never carry over.</p></div>
-    <div class="qa"><p class="q">Where is the setting for…?</p><p>Settings has its own search field. Type a word such as "time zone" or "backup".</p></div>
-    <div class="qa"><p class="q">How do I report a problem?</p><p>Email <a href="mailto:myworlddiscovered@gmail.com">myworlddiscovered@gmail.com</a> with:</p>
+  <section class="hub" id="faq">
+    <h2>Questions and getting help</h2>
+    <p class="lead">Quick answers, and how to reach us.</p>
+    <article class="module" id="q-sends"><h3>Does AD Focus send emails or post anything by itself?</h3><p class="for">No. Every notice, email and calendar change is a draft or preview you confirm. The only exception is a scheduled survey with automatic sending switched on.</p></article>
+    <article class="module" id="q-ai"><h3>Does AI see student names?</h3><p class="for">Not by default. AI runs only when you click, shows what it will send, and hides student names. Staff notes and coach evaluations are never sent. Choose your provider in <strong>Settings › AI</strong>, or use the free on-device model.</p></article>
+    <article class="module" id="q-notes"><h3>Can coaches see staff notes or evaluations?</h3><p class="for">No. Staff Notes are for the AD only by default, and the AD shares an evaluation with a coach one checkpoint at a time.</p></article>
+    <article class="module" id="q-solo"><h3>Can I use AD Focus without connecting to a school?</h3><p class="for">Yes. It works on one Mac on its own; connecting to a school adds sharing and live updates.</p></article>
+    <article class="module" id="q-two"><h3>Can I belong to two schools?</h3><p class="for">Not on the same Mac. Joining a second school replaces this Mac's data.</p></article>
+    <article class="module" id="q-gmail"><h3>Is my Gmail shared with my team?</h3><p class="for">No. Mail stays on your own Mac. Recent and starred mail is kept on the Mac, encrypted, so you can read it offline.</p></article>
+    <article class="module" id="q-year"><h3>What happens at the end of the school year?</h3><p class="for">Choose <strong>File › School Setup… › Move to a New Year</strong>. For blackouts, teams, coaches, rosters (grades move up and graduates leave), budget, practices, events and goals, choose Keep, Change or Leave behind. Expenses, clearances, trips, incidents, tournaments and equipment never carry over.</p></article>
+    <article class="module" id="q-settings"><h3>Where is the setting for…?</h3><p class="for">Settings has its own search field. Type a word such as "time zone" or "backup".</p></article>
+    <article class="module" id="q-report"><h3>How do I report a problem?</h3>
+      <p class="for">Email <a href="mailto:myworlddiscovered@gmail.com">myworlddiscovered@gmail.com</a> with:</p>
       <ol>
         <li>Your name, school and role.</li>
         <li>What you did, what you expected, and what happened, including the exact wording of any message.</li>
         <li>A screenshot (<kbd>⇧⌘4</kbd>), with any student details covered.</li>
         <li>Your Mac model and macOS version (Apple menu › About This Mac).</li>
       </ol>
-      <p>Never send passwords, two-step codes, move files or their passphrases.</p>
-    </div>
+      <h4>Good to know</h4>
+      <ul><li>Never send passwords, two-step codes, move files or their passphrases.</li></ul>
+    </article>
   </section>
+  </main>
+</div>
 
-  <footer>
-    <p><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="mailto:myworlddiscovered@gmail.com">Contact</a></p>
-    <p>&copy; 2026 My World Discovered. All rights reserved.</p>
-  </footer>
-</main>
-<script>
-(function () {
-  var input = document.getElementById('q');
-  var count = document.getElementById('count');
-  var empty = document.getElementById('empty');
-  var contents = document.getElementById('contents');
-  var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
-  var hint = count.innerHTML;
-
-  // Searchable units: paragraphs, list items, table rows and Q&A blocks.
-  var units = [];
-  sections.forEach(function (s) {
-    s.querySelectorAll(':scope > p, :scope > ul > li, :scope > ol > li, tbody tr, .qa').forEach(function (el) {
-      if (el.closest('.qa') && el !== el.closest('.qa')) return;
-      units.push({ el: el, section: s, html: el.innerHTML, text: el.textContent.toLowerCase() });
-    });
-  });
-
-  function norm(s) { return s.toLowerCase().replace(/licen[cs]e/g, 'licen'); }
-  units.forEach(function (u) { u.text = norm(u.text); });
-
-  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-  // Wraps every match of the given regex patterns in <mark>, text nodes only.
-  function highlight(el, patterns) {
-    var re = new RegExp('(' + patterns.join('|') + ')', 'gi');
-    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-    var nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(function (n) {
-      re.lastIndex = 0;
-      if (!re.test(n.nodeValue)) return;
-      re.lastIndex = 0;
-      var span = document.createElement('span');
-      span.innerHTML = n.nodeValue.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }).replace(re, '<mark>$1</mark>');
-      n.parentNode.replaceChild(span, n);
-    });
-  }
-
-  function run() {
-    var q = input.value.trim();
-    var terms = norm(q).split(/\s+/).filter(Boolean);
-    units.forEach(function (u) { u.el.innerHTML = u.html; u.el.classList.remove('hidden'); });
-    sections.forEach(function (s) {
-      s.classList.remove('hidden');
-      s.querySelectorAll('.table-wrap, ul, ol, p').forEach(function (b) { b.classList.remove('hidden'); });
-    });
-    if (!terms.length) {
-      count.innerHTML = hint; empty.style.display = 'none'; contents.classList.remove('hidden');
-      return;
-    }
-    contents.classList.add('hidden');
-    var hits = 0;
-    var patterns = terms.map(function (t) { return t === 'licen' ? 'licen[cs]e' : escapeRe(t); });
-    units.forEach(function (u) {
-      var match = terms.every(function (t) { return u.text.indexOf(t) !== -1; });
-      if (match) { hits++; highlight(u.el, patterns); }
-      else u.el.classList.add('hidden');
-    });
-    sections.forEach(function (s) {
-      s.querySelectorAll('.table-wrap').forEach(function (w) {
-        if (!w.querySelector('tbody tr:not(.hidden)')) w.classList.add('hidden');
-      });
-      s.querySelectorAll(':scope > ul, :scope > ol').forEach(function (l) {
-        if (!l.querySelector(':scope > li:not(.hidden)')) l.classList.add('hidden');
-      });
-      var any = units.some(function (u) { return u.section === s && !u.el.classList.contains('hidden'); });
-      if (!any) s.classList.add('hidden');
-    });
-    count.textContent = hits ? hits + (hits === 1 ? ' match' : ' matches') : 'No matches';
-    empty.style.display = hits ? 'none' : 'block';
-  }
-
-  var timer;
-  input.addEventListener('input', function () {
-    clearTimeout(timer); timer = setTimeout(run, 120);
-    try { history.replaceState(null, '', input.value ? '?q=' + encodeURIComponent(input.value) : location.pathname); } catch (e) {}
-  });
-  document.querySelectorAll('.chip').forEach(function (c) {
-    c.addEventListener('click', function () { input.value = c.textContent; input.dispatchEvent(new Event('input')); input.focus(); });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
-    if (e.key === 'Escape' && document.activeElement === input) { input.value = ''; input.dispatchEvent(new Event('input')); }
-  });
-  var start = new URLSearchParams(location.search).get('q');
-  if (start) { input.value = start; run(); }
-})();
-</script>
+<section class="stuck">
+  <div class="stuck-in">
+    <div><h2>Still need help?</h2><p>Write to us and include the exact wording of any message you see.</p></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn ghost" href="help.html">Help Centre</a>
+      <a class="btn" href="mailto:myworlddiscovered@gmail.com">Email support</a>
+    </div>
+  </div>
+</section>
+<footer class="site-foot">
+  <a href="index.html">Home</a><a href="help.html">Help Centre</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a>
+  <span>&copy; 2026 My World Discovered</span>
+</footer>
+<script src="help.js"></script>
 </body>
 </html>
