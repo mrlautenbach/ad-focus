@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Please confirm — AD Focus</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .card { border-top: 2px solid var(--fg); padding-top: 12px; margin: 24px 0; }
+  .card p { margin: 2px 0; }
+  .card .what { font-size: 1.2rem; font-weight: 600; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .actions button { font: inherit; padding: 10px 20px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--fg); background: var(--bg); color: var(--fg); }
+  .actions button.primary { background: var(--fg); color: var(--bg); }
+  .actions button:disabled { opacity: 0.5; cursor: default; }
+  #msg { margin-top: 20px; }
+</style>
+</head>
+<body>
+<nav><span class="brand">AD Focus</span></nav>
+<main>
+  <h1 id="heading">Please confirm</h1>
+  <p class="subtitle" id="school">&nbsp;</p>
+  <div class="card" id="request" aria-live="polite">Loading…</div>
+  <div class="actions" id="actions"></div>
+  <p id="msg" role="status"></p>
+  <p class="subtitle" style="margin-top:40px;font-size:0.85rem">This link works once and expires after two weeks.
+    Only your answer is recorded — nothing else is collected.</p>
+</main>
+<script>
+// Single-use confirm/decline link for a transport booking, catering order or game date. Talks only to the
+// response-link function, which checks expiry, single use and purpose itself (AD Focus migration 0360).
+const API = 'https://xmiaewvlfyydfglkbhgv.supabase.co/functions/v1/response-link'
+const HEADINGS = { transport: 'Transport booking', catering: 'Catering order', opponent: 'Game date' }
+const t = new URLSearchParams(location.search).get('t') || ''
+const el = id => document.getElementById(id)
+const say = s => { el('msg').textContent = s }
+const day = d => new Date(d).toLocaleString([], { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })
+
+async function load() {
+  // Keep the token out of the address bar history once it has been read.
+  history.replaceState(null, '', location.pathname)
+  const r = await fetch(API + '?t=' + encodeURIComponent(t), { headers: { Accept: 'application/json' } })
+  const d = await r.json()
+  if (!r.ok) { el('request').textContent = d.error; return }
+  el('heading').textContent = HEADINGS[d.kind] || 'Please confirm'
+  el('school').textContent = d.school + (d.counterpart ? ' · for ' + d.counterpart : '')
+  const box = el('request'); box.textContent = ''
+  for (const [text, cls] of [[d.title, 'what'], [day(d.starts_at), ''], [d.detail, '']]) {
+    if (!text) continue
+    const p = document.createElement('p'); p.textContent = text; if (cls) p.className = cls; box.appendChild(p)
+  }
+  for (const [answer, label, cls] of [['confirm', 'Confirm', 'primary'], ['decline', 'Decline', '']]) {
+    const b = document.createElement('button'); b.textContent = label; b.className = cls
+    b.onclick = () => send(answer); el('actions').appendChild(b)
+  }
+}
+
+async function send(answer) {
+  document.querySelectorAll('.actions button').forEach(b => b.disabled = true)
+  try {
+    const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ t, answer }) })
+    const d = await r.json()
+    el('actions').textContent = ''
+    say(r.ok ? (answer === 'confirm' ? 'Thank you — you have confirmed. The school can see your answer.'
+                                     : 'Thank you — you have declined. The school can see your answer.') : d.error)
+  } catch {
+    document.querySelectorAll('.actions button').forEach(b => b.disabled = false)
+    say('Could not reach the server. Please try again.')
+  }
+}
+
+if (!t) { el('request').textContent = 'This link is missing its code. Please use the link from your email.' }
+else load().catch(() => say('Something went wrong. Please try again later.'))
+</script>
+</body>
+</html>
